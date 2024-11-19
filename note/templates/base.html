@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static 'css\note.css' %}" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div id="sidebar">
+            <h2>Notes</h2>
+            <p>There are notes.</p>
+        </div>
+    </body>
+</html>
