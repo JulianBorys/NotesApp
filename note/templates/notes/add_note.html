@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Dodaj Notatkę</h2>
+    <form method="post" action="{% url 'notes:add_note' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_university" class="form-label">Uczelnia</label>
+            {{ form.university }}
+        </div>
+        <div class="mb-3">
+            <label for="id_course" class="form-label">Kurs</label>
+            {{ form.course }}
+        </div>
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Tytuł</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            <label for="id_body" class="form-label">Treść</label>
+            {{ form.body }}
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+</div>
+{% endblock %}
