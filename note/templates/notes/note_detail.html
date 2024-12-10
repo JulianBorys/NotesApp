@@ -3,9 +3,14 @@
 {% block title %} {{ note.title }} {% endblock %}
 
 {% block content %}
+
     <h1>{{ note.title }}</h1>
-    <p class="date">
-        Published {{ note.publish }} by {{ note.author }}
+    <p>
+        Created {{ note.created }} by 
+        <a href="{% url 'notes:note_user_list' pk=note.author.id %}">
+            {{ note.author }}
+        </a>
     </p>
     {{ note.body|linebreaks }}
+
 {% endblock %}
