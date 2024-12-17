@@ -13,4 +13,7 @@
     </p>
     {{ note.body|linebreaks }}
 
+    <a href="{% url 'notes:update_note' note.pk %}">Edytuj</a>
+    <a href="{% url 'notes:delete_note' note.pk %}" class="btn btn-danger">Usuń</a>
+
 {% endblock %}

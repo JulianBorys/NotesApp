@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import University, Course, Note
+
 # Register your models here.
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):

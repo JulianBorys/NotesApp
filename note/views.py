@@ -1,9 +1,11 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, ListView, CreateView
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 from .models import University, Course, Note
-from .forms import NoteForm
+from .forms import NoteForm, CourseForm
 
 # Note model - Views
 class NoteDetailView(DetailView):
@@ -38,7 +40,50 @@ class AddNote(CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes/add_note.html'
-    success_url = 'notes/'
+    success_url = 'notes:note_list'
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        note = form.save(commit=False)
+        note.author = self.request.user
+        note.save()
+        return redirect(note.get_absolute_url())
+    
+class UpdateNote(LoginRequiredMixin, UpdateView):
+    model = Note
+    form_class = NoteForm
+    template_name = 'notes/update_note.html'
+    success_url = '/notes/'
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        note = form.save(commit=False)
+        print(note.author)
+        if note.author != self.request.user:
+            form.add_error(None, "Nie możesz edytować tej notatki.")
+            return self.form_invalid(form)
+        note.save()
+        return super().form_valid(form)
+    
+class DeleteNote(LoginRequiredMixin, DeleteView):
+    model = Note
+    template_name = 'notes/delete_note.html'
+    success_url = '/notes/'
+
+    def get_object(self, queryset=None):
+        """Pobierz obiekt notatki i sprawdź, czy użytkownik jest jej autorem."""
+        obj = super().get_object(queryset)
+        if obj.author != self.request.user:
+            raise Http404("Nie masz uprawnień do usunięcia tej notatki.")
+        return obj
     
 # Course model - Views
 class CourseUniversityListView(ListView):
@@ -50,4 +95,14 @@ class CourseUniversityListView(ListView):
                                             id=self.kwargs['pk'],
                                             slug=self.kwargs['slug'])
         return Course.objects.filter(university=self.university)
+     
+class AddCourse(CreateView):
+    model = Course
+    form_class = CourseForm
+    template_name = "courses/add_course.html"
     
+    def form_valid(self, form):
+        course = form.save(commit=False)
+        course.university = form.cleaned_data['university']
+        course.save()
+        return redirect(course.university.get_absolute_url())
