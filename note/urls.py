@@ -11,11 +11,9 @@ urlpatterns = [
     path('notes/user/<int:pk>/', views.NoteUserListView.as_view(), name='note_user_list'),
     path('notes/course/<int:pk>/<slug:slug>', views.NoteCourseListView.as_view(), name='note_course_list'),
     #? POST
-    path('notes/add/', views.AddNote.as_view(), name='add_note'),
-    #? UPDATE, WORKS
-    path('notes/update/<int:pk>', views.UpdateNote.as_view(), name='update_note'),
-    #? DELETE WORKS
-    path('notes/delete/<int:pk>', views.DeleteNote.as_view(), name='delete_note'),
+    path('notes/add/', views.NoteCreateView.as_view(), name='note_add'),
+    path('notes/<int:pk>/edit/', views.NoteUpdateView.as_view(), name='note_edit'),
+    path('notes/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='note_delete'),
     
     # Courses
     #? GET
@@ -23,7 +21,9 @@ urlpatterns = [
     #? POST
     path('courses/add/', views.AddCourse.as_view(), name='add_course'),
     #? UPDATE
+    path('courses/update/<int:pk>', views.UpdateCourse.as_view(), name='update_course'),
     #? DELETE
     
     # Universities
+    path('ajax/load-courses/', views.load_courses, name='ajax_load_courses'),
 ]

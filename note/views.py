@@ -1,8 +1,9 @@
-from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.urls import reverse_lazy
 
 from .models import University, Course, Note
 from .forms import NoteForm, CourseForm
@@ -36,47 +37,31 @@ class NoteCourseListView(ListView):
                                         slug=self.kwargs['slug'])
         return Note.objects.filter(course=self.course)
 
-class AddNote(CreateView):
+class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     form_class = NoteForm
-    template_name = 'notes/add_note.html'
-    success_url = 'notes:note_list'
-    
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-    
+    template_name = 'notes/note_form.html'
+
     def form_valid(self, form):
-        note = form.save(commit=False)
-        note.author = self.request.user
-        note.save()
-        return redirect(note.get_absolute_url())
-    
-class UpdateNote(LoginRequiredMixin, UpdateView):
-    model = Note
-    form_class = NoteForm
-    template_name = 'notes/update_note.html'
-    success_url = '/notes/'
-    
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-    
-    def form_valid(self, form):
-        note = form.save(commit=False)
-        print(note.author)
-        if note.author != self.request.user:
-            form.add_error(None, "Nie możesz edytować tej notatki.")
-            return self.form_invalid(form)
-        note.save()
+        form.instance.author = self.request.user
         return super().form_valid(form)
-    
-class DeleteNote(LoginRequiredMixin, DeleteView):
+
+class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
-    template_name = 'notes/delete_note.html'
-    success_url = '/notes/'
+    form_class = NoteForm
+    template_name = 'notes/note_form.html'
+    
+    def get_object(self, queryset=None):
+        """Pobierz obiekt notatki i sprawdź, czy użytkownik jest jej autorem."""
+        obj = super().get_object(queryset)
+        if obj.author != self.request.user:
+            raise Http404("Nie masz uprawnień do zmiany tej notatki.")
+        return obj
+
+class NoteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Note
+    template_name = 'notes/note_confirm_delete.html'
+    success_url = reverse_lazy('notes:note_list')  # Update the URL name as per your project structure
 
     def get_object(self, queryset=None):
         """Pobierz obiekt notatki i sprawdź, czy użytkownik jest jej autorem."""
@@ -96,7 +81,7 @@ class CourseUniversityListView(ListView):
                                             slug=self.kwargs['slug'])
         return Course.objects.filter(university=self.university)
      
-class AddCourse(CreateView):
+class AddCourse(LoginRequiredMixin, CreateView):
     model = Course
     form_class = CourseForm
     template_name = "courses/add_course.html"
@@ -106,3 +91,19 @@ class AddCourse(CreateView):
         course.university = form.cleaned_data['university']
         course.save()
         return redirect(course.university.get_absolute_url())
+    
+class UpdateCourse(LoginRequiredMixin, UpdateView):
+    model = Course
+    form_class = CourseForm
+    template = 'courses/update_course.html'
+    
+    def form_valid(self, form):
+        course = form.save(commit=False)
+        course.university = form.cleaned_data['university']
+        course.save()
+        return redirect(course.university.get_absolute_url())
+    
+def load_courses(request):
+    university_id = request.GET.get('university')
+    courses = Course.objects.filter(university_id=university_id).order_by('name')
+    return JsonResponse(list(courses.values('id', 'name')), safe=False)
