@@ -8,7 +8,6 @@
     <div class="notes-container">
         {% for favourite in favourite_notes %}
         <div class="note-item">
-            <!-- Ikona notatki -->
             <div class="note-icon">
                 <img src="{% static 'icons/note.svg' %}" alt="Note icon">
             </div>
@@ -45,7 +44,7 @@
     {% else %}
         <div class="form-container">
     <h1>You don't have any favorite notes yet.</h1>
-        
+
         </div>
     {% endif %}
 {% endblock %}

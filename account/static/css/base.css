@@ -1,11 +1,11 @@
-/* Reset podstawowy */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Ustawienia globalne */
+
 
 body {
   font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@ body {
   color: #333;
 }
 
-/* Nagłówek */
+
 .header {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
@@ -30,17 +30,16 @@ body {
   font-weight: bold;
 }
 
-/* Główna zawartość */
 .main-content {
   display: flex;
-  flex-direction: column; /* Ustaw elementy (search + notes) w kolumnie */
-  align-items: center;    /* Wyśrodkuj w poziomie (opcjonalnie) */
-  justify-content: flex-start; /* Wypchnij do góry ekranu (zamiast center) */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   min-height: calc(100vh - 60px);
   padding: 20px;
 }
 
-/* Kontener powitania */
+
 .welcome-container {
     max-width: 600px;
     margin: 50px auto;
@@ -52,7 +51,7 @@ body {
     text-align: center;
 }
 
-/* Tytuł powitania */
+
 .welcome-title {
     font-size: 24px;
     font-weight: bold;
@@ -60,14 +59,14 @@ body {
     margin-bottom: 15px;
 }
 
-/* Wiadomość powitalna */
+
 .welcome-message {
     font-size: 16px;
     color: #333;
     line-height: 1.5;
 }
 
-/* Link do logowania */
+
 .welcome-link {
     color: #00a8a8;
     text-decoration: none;
@@ -80,7 +79,7 @@ body {
     text-decoration: underline;
 }
 
-/* Kontener formularza */
+
 .form-container {
   background-color: #fff;
   width: 450px;
@@ -96,7 +95,7 @@ body {
   text-align: center;
 }
 
-/* Pola formularza i etykiety */
+
 .form-container label {
   display: block;
   margin-bottom: 5px;
@@ -113,7 +112,7 @@ body {
   border-radius: 4px;
 }
 
-/* Przyciski */
+
 .form-container input[type="submit"],
 .form-container .btn-submit {
   display: inline-block;
@@ -135,7 +134,7 @@ body {
   background-color: #008f8f;
 }
 
-/* Linki pod przyciskiem (np. „Zaloguj się” / „Nie pamiętasz hasła?”) */
+
 .form-container .extra-links {
   text-align: center;
   margin-top: 15px;
@@ -151,7 +150,7 @@ body {
 }
 
 
-/* Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -164,7 +163,7 @@ body {
   color: #333;
 }
 
-/* Nagłówek */
+
 .header {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
@@ -180,14 +179,14 @@ body {
   padding: 0 20px;
 }
 
-/* Logo */
+
 .logo {
   font-size: 24px;
   font-weight: bold;
   color: #00a8a8;
 }
 
-/* Menu */
+
 .menu {
   list-style: none;
   display: flex;
@@ -201,17 +200,17 @@ body {
 
 .menu li.selected a {
   font-weight: bold;
-  color: #00a8a8; /* podkreśla aktualną sekcję */
+  color: #00a8a8;
 }
 
-/* User info */
+
 .user {
   display: flex;
   align-items: center;
-  gap: 10px; /* odstęp między tekstem a przyciskiem */
+  gap: 10px;
 }
 
-/* Przycisk wylogowania w nagłówku */
+
 .user button {
   padding: 5px 10px;
   background-color: #00a8a8;
@@ -227,11 +226,11 @@ body {
 
 
 .user-button {
-  display: inline-flex;      /* Ustawiamy w linii, z ikoną i nazwą obok siebie */
-  align-items: center;       /* Ikona i tekst wyśrodkowane w pionie */
+  display: inline-flex;
+  align-items: center;
   padding: 6px 12px;
-  border: 2px solid #00a8a8; /* Turkusowa ramka */
-  border-radius: 9999px;     /* Mocno zaokrąglone */
+  border: 2px solid #00a8a8;
+  border-radius: 9999px;
   background-color: #fff;
   color: #333;
   text-decoration: none;
@@ -240,7 +239,7 @@ body {
 }
 
 .user-button:hover {
-  background-color: #f2f2f2; /* Jasne tło przy najechaniu */
+  background-color: #f2f2f2;
 }
 
 
@@ -267,44 +266,44 @@ body {
   width: 100%;
 }
 .logout-btn-btn:hover {
-  background-color: #fdecec; /* jasnoczerwone tło przy hoverze, jeśli chcesz */
+  background-color: #fdecec;
 }
 
 
-/* Kontener na notatki */
+
 .notes-container {
   display: block;
   flex-grow: 1;
-  flex-direction: column; /* Notatki ułożone w kolumnie */
+  flex-direction: column;
   width: 90%;
-  gap: 15px; /* Odstępy między notatkami */
+  gap: 15px;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 30px 40px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   border-radius: 6px;
-  margin: 0 auto; /* Centrowanie na stronie */
+  margin: 0 auto;
 }
 
-/* Pojedyncza notatka */
+
 .note-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-bottom: 2px solid #00a8a8; /* Turkusowa linia */
+  border-bottom: 2px solid #00a8a8;
   padding: 10px 0;
 }
 
-/* Ikona notatki */
+
 .note-icon img {
   width: 40px;
   height: 40px;
-  margin-right: 10px; /* Odstęp między ikoną a informacjami */
+  margin-right: 10px;
 }
 
-/* Informacje o notatce */
+
 .note-info {
-  flex-grow: 1; /* Rozciąga się, aby zająć dostępne miejsce */
+  flex-grow: 1;
 }
 
 .note-title {
@@ -320,21 +319,21 @@ body {
 
 .note-university {
   font-size: 14px;
-  color: #777; /* Jasny szary */
+  color: #777;
 }
 
-/* Akcje (edytuj, usuń) */
+
 .note-actions {
   display: flex;
   align-items: center;
-  gap: 10px; /* Odstęp między ikonami akcji */
+  gap: 10px;
 }
 .note-actions a,
 .note-actions button {
-  display: inline-flex; /* Wyrównanie wewnętrznych elementów */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 10px; /* Dopasuj padding */
+  padding: 5px 10px;
   border: none;
   border-radius: 4px;
   font-size: 14px;
@@ -348,13 +347,13 @@ body {
 
 .note-actions a img,
 .note-actions button img {
-  width: 20px; /* Rozmiar ikon */
+  width: 20px;
   height: 20px;
 }
 
 .note-actions button {
-  background-color: inherit; /* Dopasuj kolor tła */
-  color: inherit; /* Dopasuj kolor tekstu */
+  background-color: inherit;
+  color: inherit;
 }
 
 
@@ -376,10 +375,10 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Tytuł notatki */
+
 .add-note-container {
-    position: relative; /* Aby kontener służył jako punkt odniesienia */
-    margin-bottom: 20px; /* Odstęp między przyciskiem a resztą zawartości */
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .add-note-container .btn-add-note {
@@ -407,7 +406,7 @@ body {
   color: #333;
 }
 
-/* Informacje o notatce */
+
 .note-meta {
   margin-bottom: 10px;
   font-size: 14px;
@@ -428,7 +427,7 @@ body {
   text-decoration: underline;
 }
 
-/* Treść notatki */
+
 .note-body {
   margin-top: 20px;
   line-height: 1.6;
@@ -436,7 +435,7 @@ body {
   color: #333;
 }
 
-/* Akcje notatki */
+
 .note-actions {
   margin-top: 20px;
   display: flex;
@@ -475,7 +474,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Przyciski */
+
 .delete-actions {
   display: flex;
   justify-content: space-between;
@@ -529,8 +528,8 @@ body {
 .search-container {
   display: block;
   width: 100%;
-  max-width: 500px;       /* Maksymalna szerokość, np. 500px */
-  margin: 0 auto 20px;    /* Wyśrodkowanie i odstęp od listy */
+  max-width: 500px;
+  margin: 0 auto 20px;
 }
 
 

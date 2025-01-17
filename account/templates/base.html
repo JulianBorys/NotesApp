@@ -33,13 +33,12 @@
                         {{ request.user.first_name|default:request.user.username }}
                     </a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="user-button">Log-in</a>
+                    <a href="{% url 'login' %}" class="user-button">Zaloguj</a>
                 {% endif %}
             </div>
         </div>
     </header>
 
-    <!-- Główna zawartość strony -->
     <main class="main-content">
         {% block content %}
         {% endblock %}
