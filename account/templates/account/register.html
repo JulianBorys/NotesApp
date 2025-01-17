@@ -1,13 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %} Create an account {% endblock %}
+{% block title %}Rejestracja{% endblock %}
 
 {% block content %}
-    <h1>Create an account</h1>
-    <p>Please, sign up using the following form:</p>
-    <form method="post">
-        {{ user_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Create my account"></p>
-    </form>
+<div class="form-container">
+  <h1>Zarejestruj się</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <input type="submit" value="Zarejestruj się">
+  </form>
+  <div class="extra-links">
+    <p><a href="{% url 'login' %}">Masz już konto? Zaloguj się</a></p>
+  </div>
+</div>
 {% endblock %}

@@ -1,8 +1,51 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard.</p>
+    {% if favourite_notes %}
+    <div class="notes-container">
+        {% for favourite in favourite_notes %}
+        <div class="note-item">
+            <!-- Ikona notatki -->
+            <div class="note-icon">
+                <img src="{% static 'icons/note.svg' %}" alt="Note icon">
+            </div>
+            <div class="note-info">
+                <a class="note-title" href="{{ favourite.note.get_absolute_url }}">
+                    {{ favourite.note.title }}
+                </a>
+                <div class="note-university">
+                    {{ favourite.note.course }}
+                </div>
+                <div class="note-university">
+                    {{ favourite.note.course.university }}
+                </div>
+            </div>
+            <div class="note-actions">
+                <form method="post" action="{% url 'note:toggle_favorite' favourite.note.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-remove-favorite" title="Usuń z ulubionych">
+                        <img src="{% static 'icons/remove-favourite.svg' %}" alt="Remove Favourite">
+                    </button>
+                </form>
+               {% if is_user_view %}
+                    <a href="{% url 'note:note_edit' note.pk %}" title="Edytuj">
+                        <img src="{% static 'icons/edit.svg' %}" alt="Edit">
+                    </a>
+                    <a href="{% url 'note:note_delete' note.pk %}" title="Usuń">
+                        <img src="{% static 'icons/delete.svg' %}" alt="Delete">
+                    </a>
+                    {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="form-container">
+    <h1>You don't have any favorite notes yet.</h1>
+        
+        </div>
+    {% endif %}
 {% endblock %}

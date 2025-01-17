@@ -1,277 +1,559 @@
-@import url(//fonts.googleapis.com/css?family=Muli);
+/* Reset podstawowy */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ustawienia globalne */
 
 body {
-    margin:0;
-    padding:0;
-    font-family:helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-p {
-    line-height: 1.8;
+/* Nagłówek */
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
 }
 
-a {
-    color:#12c064;
-    text-decoration:none;
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-a:hover {
-    color:#00a74f;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
-
-h1 {
-    border-bottom:1px solid #bbb;
-    padding:0 0 10px 0;
-    margin:10px 0 20px 0;
+/* Główna zawartość */
+.main-content {
+  display: flex;
+  flex-direction: column; /* Ustaw elementy (search + notes) w kolumnie */
+  align-items: center;    /* Wyśrodkuj w poziomie (opcjonalnie) */
+  justify-content: flex-start; /* Wypchnij do góry ekranu (zamiast center) */
+  min-height: calc(100vh - 60px);
+  padding: 20px;
 }
 
-h2 {
-    margin:30px 0 20px;
+/* Kontener powitania */
+.welcome-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-ol {
-    line-height:1.5;
+/* Tytuł powitania */
+.welcome-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00a8a8;
+    margin-bottom: 15px;
 }
 
-#header {
-    padding:10px 100px;
-    font-size:14px;
-    background:#12c064;
-    color:#fff;
-    border-bottom:4px solid #1cdf78;
-    overflow:auto;
+/* Wiadomość powitalna */
+.welcome-message {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
 }
 
-#header .logo {
-    font-family: 'Muli', sans-serif;
-    float:left;
-    color:#f3f7cc;
-    font-size:20px;
-    margin-right:10%;
+/* Link do logowania */
+.welcome-link {
+    color: #00a8a8;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-#header ul.menu {
-    list-style:none;
-    float:left;
-    margin:0;
-    padding:0;
-}
-#header ul.menu li {
-    float:left;
-    padding:4px 10px;
+.welcome-link:hover {
+    color: #008f8f;
+    text-decoration: underline;
 }
 
-#header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color:#1b6d32;
-    font-weight:bold;
+/* Kontener formularza */
+.form-container {
+  background-color: #fff;
+  width: 450px;
+  border: 1px solid #ccc;
+  padding: 30px 40px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
 }
 
-#header a {
-    color:#f3f7cc;
-}
-#header a:hover {
-    color:#fff;
-}
-
-#header .user {
-    float:right;
-    padding-top:4px;
+.form-container h1 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
 }
 
-#content {
-    padding:30px 100px;
+/* Pola formularza i etykiety */
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
-/* forms */
-form {
-    overflow:auto;
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-form p {
-    width:100%;
-    overflow:auto;
+/* Przyciski */
+.form-container input[type="submit"],
+.form-container .btn-submit {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  color: #fff;
+  background-color: #00a8a8;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
-label {
-    float:left;
-    clear:both;
-    color:#333;
-    margin-bottom:4px;
-}
-input, textarea {
-    clear:both;
-    float:left;
-    margin:0 0 10px;
-    background:#efefef;
-    border:0;
-    padding:6px 10px;
-    font-size:14px;
-}
-input[type=submit], a.button {
-    font-weight:bold;
-    background:#12c064;
-    color:#fff;
-    padding:10px 20px;
-    font-size:14px;
-    text-transform:uppercase;
-}
-.errorlist {
-    color:#cc0033;
-    float:left;
-    clear:both;
-    padding-left:10px;
-}
-.helptext {
-    margin:0 0 20px 0;
-    color:#aaa;
-    clear:both;
-    float:left;
-    font-size:13px;
-}
-/* messages */
-ul.messages {
-    margin:10px 100px;
-    padding:0;
-    list-style-type:
-    none;
-}
-ul.messages li.success,
-ul.messages li.warning,
-ul.messages li.error,
-ul.messages li.info {
-    margin:0;
-    padding:14px 20px;
-    list-style:none;
-    color:#fff;
+.form-container input[type="submit"]:hover,
+.form-container .btn-submit:hover {
+  background-color: #008f8f;
 }
 
-ul.messages li.success { background:#81ce81; }
-ul.messages li.success a { color:#0ac33e; }
-
-ul.messages li.error { background:#a30029; color:#e9828e; }
-ul.messages li.error a { color:#e9828e; }
-
-ul.messages li.info { background:#faffae; color:#696b4e; }
-ul.messages li.info a { color:#1586de; }
-
-ul.messages li.warning { background:#de9404; }
-ul.messages li.warning a { color:#f49000; }
-
-ul.messages li a.close {
-    margin:0;
-    float:right;
-    opacity:1;
-    border:0;
-    box-shadow:none;
-    text-shadow:none;
+/* Linki pod przyciskiem (np. „Zaloguj się” / „Nie pamiętasz hasła?”) */
+.form-container .extra-links {
+  text-align: center;
+  margin-top: 15px;
 }
 
-.login-form {
-    float:left;
+.form-container .extra-links a {
+  color: #00a8a8;
+  text-decoration: none;
 }
 
-/* social-auth */
-.social {
-    float:right;
-}
-.social li {
-    list-style:none;
-    padding:10px 20px;
-    margin:0 0 10px 0;
-}
-.social li a {
-    width:100%;
-    height:100%;
-    display:block;
-    color:#fff;
-}
-.social li.facebook { background:#3b5399; }
-.social li.twitter { background:#00cffa; }
-.social li.google { background:#de1710; }
-
-
-/* images */
-
-.image-preview, .image-detail {
-    max-width:300px;
-    float:left;
-    margin:0 20px 20px 0;
-}
-.image-detail { margin-top:20px; }
-.image-info div {
-    padding:20px 0;
-    overflow:auto;
-}
-.count {
-    color:#aaa;
-    border:3px solid #bbb;
-    border-radius:26px;
-    padding:10px 20px;
-    margin:20px 10px 0;
-}
-a.like, a.follow { float:right; margin-top:-8px; }
-
-#image-list { overflow:hidden; }
-#image-list .image {
-    float:left;
-    width:220px;
-    height:300px;
-    margin:0 10px 10px 10px;
-    border-top:8px solid #12c064;
-    background:#eee;
-}
-#image-list img { width:220px; height:220px; }
-#image-list .info { padding:10px; }
-#image-list .info a { color:#333; }
-.image-likes div {
-    float:left;
-    width:auto;
-    padding:10px;
-    text-align:center;
-}
-.image-likes img {
-    width:120px;
-    height:120px;
-    border-radius:50%;
+.form-container .extra-links a:hover {
+  text-decoration: underline;
 }
 
-/* users */
-#people-list img {
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    margin-bottom:20px;
-}
-#people-list .user {
-    width:180px;
-    float:left;
-    overflow:auto;
-    padding:10px;
-}
-#people-list .info { text-align:center; }
-img.user-detail {
-    border-radius:50%;
-    float:left;
-}
-.profile-info {
-    float:left;
-    overflow:auto;
-    margin-right:20px;
-}
-.image-container { margin-top:40px; }
 
-/* actions */
-.action {
-    clear:both;
-    overflow:auto;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.action .images {
-    float:left;
-    margin:0 10px 10px 0;
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
 }
-.action .date {
-    font-style:italic;
-    color:#ccc;
+
+/* Nagłówek */
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00a8a8;
+}
+
+/* Menu */
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.menu li.selected a {
+  font-weight: bold;
+  color: #00a8a8; /* podkreśla aktualną sekcję */
+}
+
+/* User info */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* odstęp między tekstem a przyciskiem */
+}
+
+/* Przycisk wylogowania w nagłówku */
+.user button {
+  padding: 5px 10px;
+  background-color: #00a8a8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user button:hover {
+  background-color: #008f8f;
+}
+
+
+.user-button {
+  display: inline-flex;      /* Ustawiamy w linii, z ikoną i nazwą obok siebie */
+  align-items: center;       /* Ikona i tekst wyśrodkowane w pionie */
+  padding: 6px 12px;
+  border: 2px solid #00a8a8; /* Turkusowa ramka */
+  border-radius: 9999px;     /* Mocno zaokrąglone */
+  background-color: #fff;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.user-button:hover {
+  background-color: #f2f2f2; /* Jasne tło przy najechaniu */
+}
+
+
+.settings-btn {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 2px solid #00a8a8;
+  color: #00a8a8;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.settings-btn:hover {
+  background-color: #f2f2f2;
+}
+
+.logout-btn {
+  border-color: #e53935;
+  color: #e53935;
+  width: 100%;
+}
+.logout-btn-btn:hover {
+  background-color: #fdecec; /* jasnoczerwone tło przy hoverze, jeśli chcesz */
+}
+
+
+/* Kontener na notatki */
+.notes-container {
+  display: block;
+  flex-grow: 1;
+  flex-direction: column; /* Notatki ułożone w kolumnie */
+  width: 90%;
+  gap: 15px; /* Odstępy między notatkami */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 30px 40px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  margin: 0 auto; /* Centrowanie na stronie */
+}
+
+/* Pojedyncza notatka */
+.note-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid #00a8a8; /* Turkusowa linia */
+  padding: 10px 0;
+}
+
+/* Ikona notatki */
+.note-icon img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px; /* Odstęp między ikoną a informacjami */
+}
+
+/* Informacje o notatce */
+.note-info {
+  flex-grow: 1; /* Rozciąga się, aby zająć dostępne miejsce */
+}
+
+.note-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.note-title:hover {
+  text-decoration: underline;
+}
+
+.note-university {
+  font-size: 14px;
+  color: #777; /* Jasny szary */
+}
+
+/* Akcje (edytuj, usuń) */
+.note-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Odstęp między ikonami akcji */
+}
+.note-actions a,
+.note-actions button {
+  display: inline-flex; /* Wyrównanie wewnętrznych elementów */
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px; /* Dopasuj padding */
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.note-actions a img,
+.note-actions button img {
+  width: 20px; /* Rozmiar ikon */
+  height: 20px;
+}
+
+.note-actions button {
+  background-color: inherit; /* Dopasuj kolor tła */
+  color: inherit; /* Dopasuj kolor tekstu */
+}
+
+
+.delete-link {
+  background-color: #e53935;
+}
+
+.delete-link:hover {
+  background-color: #c62828;
+}
+
+.detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fff;
+  padding: 30px 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tytuł notatki */
+.add-note-container {
+    position: relative; /* Aby kontener służył jako punkt odniesienia */
+    margin-bottom: 20px; /* Odstęp między przyciskiem a resztą zawartości */
+}
+
+.add-note-container .btn-add-note {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #00a8a8;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.add-note-container .btn-add-note:hover {
+    background-color: #008f8f;
+}
+
+.note-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Informacje o notatce */
+.note-meta {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+.note-meta strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.meta-link {
+  color: #00a8a8;
+  text-decoration: none;
+}
+
+.meta-link:hover {
+  text-decoration: underline;
+}
+
+/* Treść notatki */
+.note-body {
+  margin-top: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Akcje notatki */
+.note-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.edit-link,
+.delete-link {
+  text-decoration: none;
+  color: #fff;
+  background-color: #00a8a8;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.edit-link:hover {
+  background-color: #008f8f;
+}
+
+
+
+.delete-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.delete-message {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* Przyciski */
+.delete-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.delete-btn {
+  background-color: #e53935;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c62828;
+}
+
+.cancel-btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #008f8f;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #008f8f;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #f2f2f2;
+  color: #006f6f;
+}
+
+
+.empty-message {
+  display: flex;
+  justify-content: center;
+    font-size: 16px;
+    color: #777;
+    margin-top: 20px;
+}
+
+
+.search-container {
+  display: block;
+  width: 100%;
+  max-width: 500px;       /* Maksymalna szerokość, np. 500px */
+  margin: 0 auto 20px;    /* Wyśrodkowanie i odstęp od listy */
+}
+
+
+.search-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #00a8a8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #008f8f;
 }

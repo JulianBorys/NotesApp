@@ -1,12 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %} Log-in {% endblock %}
+{% block title %}Logowanie{% endblock %}
+
 {% block content %}
-    <h1>Log-in</h1>
-    <p>Please, use the following form to log-in:</p>
-    <form method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Log in"></p>
-    </form>
+<div class="form-container">
+  <h1>Zaloguj się</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Zaloguj się">
+  </form>
+  <div class="extra-links">
+    <p><a href="{% url 'register' %}">Zarejestruj się</a></p>
+    <p><a href="{% url "password_reset" %}">
+        Nie pamiętasz hasła?
+    </a></p>
+  </div>
+</div>
 {% endblock %}

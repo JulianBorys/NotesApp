@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Panel ustawień{% endblock %}
+
+{% block content %}
+<div class="form-container" style="width: 400px;">
+    <h1>Ustawienia konta</h1>
+    <a href="{% url 'note:note_user_list' request.user.pk %}" class="settings-btn">Zarządzaj notatkami</a>
+    <a href="{% url 'password_change' %}" class="settings-btn">Zmiana hasła</a>
+    <form method="post" action="{% url 'logout' %}" >{% csrf_token %}
+        <button type="submit" class="settings-btn logout-btn" >Wyloguj</button>
+    </form>
+</div>
+{% endblock %}

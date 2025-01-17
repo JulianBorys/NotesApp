@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} Strona nie istnieje {% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Hej Kolego, nie powinno cię tu być.</h1>
+    <p>Lepiej wracaj i czytaj notatki.</p>
+    <a href="{% url 'note:note_list' %}" class="btn-primary">Powrót do listy notatek</a>
+</div>
+{% endblock %}

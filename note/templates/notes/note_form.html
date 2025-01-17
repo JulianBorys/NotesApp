@@ -1,32 +1,41 @@
 {% extends "base.html" %}
-{% block content %}
-  <h2>{% if note %}Edit Note{% else %}Add Note{% endif %}</h2>
-  <form method="post" id="noteForm">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save</button>
-  </form>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#id_university').change(function () {
-        var universityId = $(this).val();
-        var courseDropdown = $('#id_course');
-        courseDropdown.empty();
-        if (universityId) {
-          $.ajax({
-            url: "{% url 'notes:ajax_load_courses' %}",
-            data: { 'university': universityId },
-            success: function (data) {
-              courseDropdown.append('<option value="">Select a course</option>');
-              data.forEach(function (course) {
-                courseDropdown.append('<option value="' + course.id + '">' + course.name + '</option>');
-              });
-            }
-          });
-        }
-      });
+{% block title %}
+  {% if note %}Edit Note{% else %}Add Note{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if note %}Edytuj Notatkę{% else %}Dodaj Notatkę{% endif %}</h1>
+    <form method="post" id="noteForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">
+            {% if note %}Zapisz Zmiany{% else %}Dodaj Notatkę{% endif %}
+        </button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#id_university').change(function () {
+      var universityId = $(this).val();
+      var courseDropdown = $('#id_course');
+      courseDropdown.empty();
+      if (universityId) {
+        $.ajax({
+          url: "{% url 'notes:ajax_load_courses' %}",
+          data: { 'university': universityId },
+          success: function (data) {
+            courseDropdown.append('<option value="">Wybierz kurs</option>');
+            data.forEach(function (course) {
+              courseDropdown.append('<option value="' + course.id + '">' + course.name + '</option>');
+            });
+          }
+        });
+      }
     });
-  </script>
+  });
+</script>
 {% endblock %}

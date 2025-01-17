@@ -3,40 +3,33 @@
 {% block title %}{{ note.title }}{% endblock %}
 
 {% block content %}
-    <div class="container my-4">
-        <!-- Note Details Section -->
-        <h1 class="mb-3">{{ note.title }}</h1>
-        <p class="text-muted">
-            Created on <strong>{{ note.created|date:"F j, Y, g:i a" }}</strong> by 
-            <a href="{% url 'notes:note_user_list' pk=note.author.id %}" class="text-decoration-none">
-                {{ note.author }}
-            </a>
-        </p>
-        <p class="text-muted">
-            <strong>University:</strong>
-                <a href="{% url 'notes:course_university_list' pk=note.course.university.id slug=note.course.university.slug %}" class="text-decoration-none">
-                {{ note.course.university.name }}
-                </a>
-                <br>
-            
-            <strong>Course:</strong> 
-                <a href="{% url 'notes:note_course_list' pk=note.course.id slug=note.course.slug %}" class="text-decoration-none">
-                {{ note.course.name }}
-                </a>
-        </p>
-        <div class="note-body mb-4">
-            <p>{{ note.body|linebreaks }}</p>
-        </div>
+<div class="detail-container">
+    <h1 class="note-title">{{ note.title }}</h1>
+    <p class="note-meta">
+        Utworzono <strong>{{ note.created|date:"d M Y, H:i" }}</strong> przez
+        <a href="{% url 'note:note_user_list' pk=note.author.id %}" class="meta-link">
+            {{ note.author }}
+        </a>
+    </p>
+    <p class="note-meta">
+        <strong>Uniwersytet:</strong>
+        <a href="{% url 'note:course_university_list' pk=note.course.university.id slug=note.course.university.slug %}" class="meta-link">
+            {{ note.course.university.name }}
+        </a>
+        <br>
+        <strong>Kurs:</strong>
+        <a href="{% url 'note:note_course_list' pk=note.course.id slug=note.course.slug %}" class="meta-link">
+            {{ note.course.name }}
+        </a>
+    </p>
 
-        <!-- Actions Section -->
-        <div class="actions">
-            <a href="{% url 'notes:note_edit' pk=note.pk %}" class="btn btn-primary">
-                Edit Note
-            </a>
-            <br>
-            <a href="{% url 'notes:note_delete' note.pk %}" class="btn btn-danger">
-                <i class="bi bi-trash"></i> Delete Note
-            </a>
-        </div>
+    <div class="note-body">
+        <p>{{ note.body|linebreaks }}</p>
     </div>
+
+    <div class="note-actions">
+        <a href="{% url 'note:note_edit' pk=note.pk %}" class="edit-link">Edytuj notatkę</a>
+        <a href="{% url 'note:note_delete' note.pk %}" class="delete-link">Usuń notatkę</a>
+    </div>
+</div>
 {% endblock %}

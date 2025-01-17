@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %} Potwierdź usunięcie {% endblock %}
+
 {% block content %}
-    <h2>Potwierdź usunięcie</h2>
-    <p>Na pewno chcesz usunąć tę notatkę?</p>
+<div class="form-container">
+    <h1 class="delete-title">Potwierdź usunięcie</h1>
+    <p class="delete-message">Czy na pewno chcesz usunąć tę notatkę?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Usuń</button>
-        <a href="{% url 'notes:note_list' %}" class="btn btn-secondary">Anuluj</a>
+        <div class="delete-actions">
+            <button type="submit" class="delete-btn">Usuń</button>
+            <a href="{% url 'note:note_list' %}" class="cancel-btn">Anuluj</a>
+        </div>
     </form>
+</div>
 {% endblock %}

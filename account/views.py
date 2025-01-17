@@ -2,15 +2,17 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render
 from .forms import LoginForm, UserRegistrationForm
+from django.shortcuts import render
+from note.models import Favourite
 
 # Create your views here.
-@login_required
-def dashboard(request):
-    return render(request,
-                  'account/dashboard.html',
-                  {'section': 'dashboard'})
+# @login_required
+# def dashboard(request):
+#     return render(request,
+#                   'account/dashboard.html',
+#                   {'section': 'dashboard'})
 
 
 def user_login(request):
@@ -47,3 +49,21 @@ def user_register(request):
         user_form = UserRegistrationForm()
         
     return render(request, 'account/register.html', {'user_form': user_form})
+
+
+
+
+@login_required
+def user_settings(request):
+    return render(request, 'account/settings.html')
+
+@login_required()
+def password_change(request):
+    return render(request, 'registration/password_change_form.html')
+
+
+
+@login_required()
+def dashboard(request):
+    favorite_notes = Favourite.objects.filter(user=request.user).select_related('note__course__university')
+    return render(request, 'account/dashboard.html', {'favourite_notes': favorite_notes})

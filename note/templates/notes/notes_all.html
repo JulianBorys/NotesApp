@@ -1,25 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %} Notes {% endblock %}
 
 {% block content %}
+     {% if not is_user_view and not is_quiz_note_view%}
+          <div class="search-container">
+                <form method="get" action="{% url 'note:note_list' %}">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Wyszukaj notatki..."
+                        value="{{ request.GET.search|default:'' }}"
+                        class="search-input"
+                    >
+                    <button type="submit" class="search-button">Szukaj</button>
+                </form>
+            </div>
+     {% endif %}
 
-    {% for note in notes %}
-        <h2>
-            <a href="{{ note.get_absolute_url }}">
-                {{ note.title }}
-            </a>
-        </h2>
-        <h3>
-            <a href="{{ note.course.get_absolute_url }}">
-                {{ note.course}}
-            </a>
-        </h3>
-        <h4>
-            <a href="{{ note.course.university.get_absolute_url }}">
-            {{ note.course.university}}
-            </a>
-        </h4>
-    {% endfor %}
+    <div class="notes-container">
+        {% if notes %}
+            {% for note in notes %}
+            <div class="note-item">
+                <div class="note-icon">
+                    <img src="{% static 'icons/note.svg' %}" alt="Note icon">
+                </div>
+                <!-- Informacje o notatce -->
+                <div class="note-info">
+                    <a class="note-title" href="{{ note.get_absolute_url }}">
+                        {{ note.title }}
+                    </a>
+                    <div class="note-university">
+                        {{ note.course }}
+                    </div>
+                    <div class="note-university">
+                        {{ note.course.university }}
+                    </div>
+                </div>
+                <div class="note-actions">
+                    {% if note.id in favorite_notes %}
+                        <form method="post" action="{% url 'note:toggle_favorite' note.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-remove-favorite" title="Usuń z ulubionych">
+                                <img src="{% static 'icons/remove-favourite.svg' %}" alt="Remove Favourite">
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'note:toggle_favorite' note.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-add-favorite" title="Dodaj do ulubionych">
+                                <img src="{% static 'icons/favourite.svg' %}" alt="Favourite">
+                            </button>
+                        </form>
+                    {% endif %}
+                    {% if is_user_view %}
+                    <a href="{% url 'note:note_edit' note.pk %}" title="Edytuj">
+                        <img src="{% static 'icons/edit.svg' %}" alt="Edit">
+                    </a>
+                    <a href="{% url 'note:note_delete' note.pk %}" title="Usuń">
+                        <img src="{% static 'icons/delete.svg' %}" alt="Delete">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="empty-message">
+            <h1>Nie ma jeszcze żadnych notatek.</h1>
+        </div>
+        {% endif %}
 
+        {% if is_user_view %}
+        <div class="add-note-container">
+            <a href="{% url 'note:note_add' %}" class="btn-add-note">
+                Dodaj nową notatkę
+            </a>
+        </div>
+        {% endif %}
+    </div>
 {% endblock %}

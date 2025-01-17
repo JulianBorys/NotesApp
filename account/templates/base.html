@@ -1,45 +1,48 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
-    <head>
-        <title> {% block title %} {% endblock %} </title>
-        <link href="{% static "css/base.css" %}" rel="stylesheet">
-    </head>
-    
-    <body>
-        <div id="header">
-            <span class="logo">Bookmarks</span>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">UniStudy</div>
+
             {% if request.user.is_authenticated %}
             <ul class="menu">
                 <li {% if section == "dashboard" %}class="selected"{% endif %}>
-                    <a href="{% url 'dashboard' %}"> Dashboard</a>
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li {% if section == "notes" %}class="selected"{% endif %}>
-                    <a href="{% url 'note:note_list' %}"> Notes</a>
+                    <a href="{% url 'note:note_list' %}">Notatki</a>
                 </li>
-                <li {% if section == "people" %}class="selected"{% endif %}>
-                    <a href="#">People</a>
+                <li {% if section == "notes" %}class="selected"{% endif %}>
+                    <a href="{% url 'note:course_list' %}">Kursy</a>
                 </li>
             </ul>
             {% endif %}
 
-            <span class="user">
+            <div class="user">
                 {% if request.user.is_authenticated %}
-                    Hello {{ request.user.first_name|default:request.user.username }},
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">logout</button>
-                    </form>
+                     <a href="{% url 'user_settings' %}" class="user-button">
+                        {{ request.user.first_name|default:request.user.username }}
+                    </a>
                 {% else %}
-                    <a href="{% url "login" %}">Log-in</a>
+                    <a href="{% url 'login' %}" class="user-button">Log-in</a>
                 {% endif %}
-            </span>
+            </div>
         </div>
-        
-        <div id="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </body>
+    </header>
+
+    <!-- Główna zawartość strony -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
 </html>
